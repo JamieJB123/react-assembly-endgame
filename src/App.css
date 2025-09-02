@@ -75,3 +75,18 @@ p {
   border-radius: 3px;
   font-weight: 700;
 }
+
+.letter-section {
+  margin-top: 1rem;
+}
+
+.letter {
+  color: #F9F4DA;
+  background-color: #323232;
+  font-weight: 700;
+  font-size: 3rem;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #F9F4DA;
+  margin: 1rem 3px;
+}
