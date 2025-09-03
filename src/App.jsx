@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { clsx } from 'clsx'
 import './App.css'
 import Header from './components/Header'
@@ -8,11 +8,13 @@ import Word from './components/Word'
 import Keyboard from './components/Keyboard'
 import {languages} from '../languages'
 import { nanoid } from 'nanoid'
+import { getFarewellText } from '../utils'
 
 export default function App() {
 // State values
   const [ currentWord, setCurrentWord ] = useState("react")
   const [ guessedLetters, setGuessedLetters ] = useState([])
+
 
   // Derived Values
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
@@ -20,6 +22,14 @@ export default function App() {
   const gameLost = wrongGuessCount >= languages.length - 1
   const gameWon = guessedLetters.filter(letter => currentWord.includes(letter)).length === currentWord.length
   const gameOver = gameLost || gameWon
+
+  let lastGuessedIncorrect;
+  if (guessedLetters.length === 0) {
+    lastGuessedIncorrect = false
+  }
+  else {
+    lastGuessedIncorrect = !currentWord.includes(guessedLetters[guessedLetters.length -1])
+  }
 
   // Static Values
 
@@ -36,7 +46,7 @@ export default function App() {
   bgColor={language.backgroundColor}
   color={language.color}/>})
 
-  console.log(chipElements)
+  // console.log(chipElements)
   // console.log(guessedLetters)
 
   const letterArray = currentWord.split("")
@@ -78,18 +88,33 @@ export default function App() {
       letterGuessed={letterGuessed}
       classes={classes}/>)}
   )
+  let farewellMessage;
+  if (wrongGuessCount >= 1) {
+    farewellMessage = getFarewellText(languages[wrongGuessCount-1].name)
+  }
+  console.log(farewellMessage)
+  console.log(wrongGuessCount)
 
   const statusClasses = clsx(
     'status-container',
-    gameWon && 'status-container-won',
-    gameLost && 'status-container-lost',
+    gameOver ?
+      gameWon ? 'status-container-won' :
+      gameLost && 'status-container-lost'
+    : lastGuessedIncorrect && "farewell"
   )
 
   return (
     <>
       <main>
         <Header />
-        <Status classes={statusClasses} gameWon={gameWon} gameLost={gameLost}/>
+        <Status
+        classes={statusClasses}
+        gameWon={gameWon}
+        gameLost={gameLost}
+        gameOver={gameOver}
+        lastGuessedIncorrect={lastGuessedIncorrect}
+        farewellMessage={farewellMessage}
+        />
         <section className="chips-container">
           {chipElements}
         </section>
