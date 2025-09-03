@@ -8,6 +8,7 @@ import Status from './components/Status'
 import Chips from './components/Chips'
 import Word from './components/Word'
 import Keyboard from './components/Keyboard'
+import Loss from './components/Loss'
 import {languages} from '../languages'
 import { nanoid } from 'nanoid'
 import { getFarewellText, getWord  } from '../utils'
@@ -158,6 +159,8 @@ export default function App() {
           {keyboardElements}
         </section>
         { gameOver && <button className="new-game" onClick={resetGame}>New Game</button>}
+        {gameLost &&
+        <Loss />}
       </main>
     </>
   )
