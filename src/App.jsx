@@ -21,7 +21,7 @@ export default function App() {
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
 
   const gameLost = wrongGuessCount >= languages.length - 1
-  const gameWon = guessedLetters.filter(letter => currentWord.includes(letter)).length === currentWord.length
+  const gameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
   const gameOver = gameLost || gameWon
 
   let lastGuessedIncorrect;
@@ -95,8 +95,8 @@ export default function App() {
   if (wrongGuessCount >= 1) {
     farewellMessage = getFarewellText(languages[wrongGuessCount-1].name)
   }
-  console.log(farewellMessage)
-  console.log(wrongGuessCount)
+  // console.log(farewellMessage)
+  // console.log(wrongGuessCount)
 
   const statusClasses = clsx(
     'status-container',
@@ -105,6 +105,11 @@ export default function App() {
       gameLost && 'status-container-lost'
     : lastGuessedIncorrect && "farewell"
   )
+
+  function resetGame() {
+    setCurrentWord(getWord())
+    setGuessedLetters([])
+  }
 
   return (
     <>
@@ -137,7 +142,7 @@ export default function App() {
         <section className="keyboard-section">
           {keyboardElements}
         </section>
-        { gameOver && <button className="new-game">New Game</button>}
+        { gameOver && <button className="new-game" onClick={resetGame}>New Game</button>}
       </main>
     </>
   )
