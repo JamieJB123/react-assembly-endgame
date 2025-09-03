@@ -77,11 +77,9 @@ p {
   font-weight: 700;
 }
 
-.letter-section {
-  margin-top: 1rem;
-}
-
 .letter {
+  display: inline-block;
+  vertical-align: middle;
   color: #F9F4DA;
   background-color: #323232;
   font-weight: 700;
@@ -90,6 +88,8 @@ p {
   text-transform: uppercase;
   border-bottom: 1px solid #F9F4DA;
   margin: 1rem 3px;
+  min-width: 75px;
+  min-height: 75px;
 }
 
 .keyboard-section {

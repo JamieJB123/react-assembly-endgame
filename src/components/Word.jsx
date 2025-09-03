@@ -1,5 +1,5 @@
-export default function Word({letter}) {
+export default function Word({letter, isGuessed}) {
     return (
-        <span className="letter">{letter}</span>
+        <span className="letter">{isGuessed ? letter : ""}</span>
     )
 }

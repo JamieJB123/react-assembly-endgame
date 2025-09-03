@@ -15,14 +15,18 @@ export default function App() {
 
   const [ currentWord, setCurrentWord ] = useState("react")
 
-  const letterArray = currentWord.split("")
-  const letterElements = letterArray.map(letter =>
-      <Word key={nanoid()} letter={letter}/>
-    )
-
-   const [ guessedLetters, setGuessedLetters ] = useState([])
+  const [ guessedLetters, setGuessedLetters ] = useState([])
 
   console.log(guessedLetters)
+
+  const letterArray = currentWord.split("")
+  const letterElements = letterArray.map(letter => {
+      const isGuessed = guessedLetters.includes(letter)
+      return (<Word
+        key={nanoid()}
+        letter={letter}
+        isGuessed={isGuessed}/>)}
+    )
 
   function letterGuessed(letter) {
     setGuessedLetters((prevLetters) =>
