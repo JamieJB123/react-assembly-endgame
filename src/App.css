@@ -67,6 +67,13 @@ p {
 
 .status-container.farewell {
   background-color: #7A5EA7;
+  border: 1px dashed #323232;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.status-container.farewell > p {
+  font-size: 1.5rem;
 }
 
 .status-container * {
@@ -138,6 +145,11 @@ p {
   text-transform: uppercase;
   border: 1px solid #D7D7D7;
   cursor: pointer;
+}
+
+.keyboard:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .correct {

@@ -1,5 +1,5 @@
-export default function Keyboard({letter, letterGuessed, classes}) {
+export default function Keyboard({letter, letterGuessed, classes, gameOver}) {
     return (
-        <button className={classes} onClick={() => letterGuessed(letter)}>{letter}</button>
+        <button className={classes} onClick={() => letterGuessed(letter)} disabled={gameOver}>{letter}</button>
     )
 }

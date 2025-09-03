@@ -86,7 +86,8 @@ export default function App() {
       key={letter}
       letter={letter}
       letterGuessed={letterGuessed}
-      classes={classes}/>)}
+      classes={classes}
+      gameOver={gameOver}/>)}
   )
   let farewellMessage;
   if (wrongGuessCount >= 1) {
