@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { clsx } from 'clsx'
+import Confetti from 'react-confetti'
+import { useWindowSize } from 'react-use'
 import './App.css'
 import Header from './components/Header'
 import Status from './components/Status'
@@ -51,14 +53,12 @@ export default function App() {
   // console.log(chipElements)
   // console.log(guessedLetters)
 
-
-  const classes = clsx("letter",
-    gameOver && gameWon ? 'letter-won' :
-    gameOver && gameLost ? 'letter-lost' : ""
-  )
   const letterArray = currentWord.split("")
   const letterElements = letterArray.map(letter => {
       const isGuessed = guessedLetters.includes(letter)
+      const classes = clsx("letter",
+      gameWon ? 'letter-won' :
+      gameLost && !guessedLetters.includes(letter) ? 'letter-lost' : "");
       return (<Word
         key={nanoid()}
         classes={classes}
@@ -118,9 +118,17 @@ export default function App() {
     setGuessedLetters([])
   }
 
+  const { width, height } = useWindowSize()
+
   return (
     <>
       <main>
+        {gameWon && <Confetti
+        width={width}
+        height={height}
+        recycle={false}
+        numberOfPieces={1000}
+        />}
         <Header />
         <Status
         classes={statusClasses}
