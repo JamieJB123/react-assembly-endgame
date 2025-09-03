@@ -8,13 +8,14 @@ import Word from './components/Word'
 import Keyboard from './components/Keyboard'
 import {languages} from '../languages'
 import { nanoid } from 'nanoid'
-import { getFarewellText } from '../utils'
+import { getFarewellText, getWord  } from '../utils'
 
 export default function App() {
 // State values
-  const [ currentWord, setCurrentWord ] = useState("react")
+// Lazy state initialisation for currentWord
+  const [ currentWord, setCurrentWord ] = useState(() => getWord())
   const [ guessedLetters, setGuessedLetters ] = useState([])
-
+  console.log(currentWord)
 
   // Derived Values
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
