@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { clsx } from 'clsx'
 import './App.css'
 import Header from './components/Header'
 import Status from './components/Status'
@@ -19,8 +20,41 @@ export default function App() {
       <Word key={nanoid()} letter={letter}/>
     )
 
+   const [ guessedLetters, setGuessedLetters ] = useState([])
+
+  console.log(guessedLetters)
+
+  function letterGuessed(letter) {
+    setGuessedLetters((prevLetters) =>
+      // Avoid duplicates by checking if the letter is already in the array first
+      prevLetters.includes(letter) ?
+      prevLetters :
+      [...prevLetters, letter]
+    )}
+    // Another way of doing this:
+    // const letterSet = new Set(prevLetters)
+    // letterSet.add(value)
+    // return Array.from(letterSet)
+
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
-  const keyboardElements = alphabet.split("").map((letter) => <Keyboard key={nanoid()} letter={letter}/>)
+
+  const keyboardElements = alphabet.split("").map((letter) => {
+    const isGuessed = guessedLetters.includes(letter)
+    const isCorrect = currentWord.includes(letter)
+    const classes = clsx(
+      'keyboard',
+      isGuessed && isCorrect ? "correct" :
+      isGuessed && !isCorrect ? "incorrect" :
+      "not-guessed"
+    )
+
+  return (
+    <Keyboard
+    key={letter}
+    letter={letter}
+    letterGuessed={letterGuessed}
+    classes={classes}/>)}
+)
 
   return (
     <>
@@ -36,6 +70,7 @@ export default function App() {
         <section className="keyboard-section">
           {keyboardElements}
         </section>
+        <button className="new-game">New Game</button>
       </main>
     </>
   )
