@@ -10,14 +10,32 @@ import {languages} from '../languages'
 import { nanoid } from 'nanoid'
 
 export default function App() {
-
-  const chipElements = languages.map((language) => <Chips key={language.name} name={language.name} bgColor={language.backgroundColor} color={language.color}/>)
-
+// State values
   const [ currentWord, setCurrentWord ] = useState("react")
-
   const [ guessedLetters, setGuessedLetters ] = useState([])
 
-  console.log(guessedLetters)
+  // Derived Values
+  const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
+
+  console.log(wrongGuessCount)
+
+  // Static Values
+
+  const chipElements = languages.map((language) => {
+    const lost = wrongGuessCount > languages.indexOf(language)
+    const classes = clsx(
+      'chips',
+      lost && 'lost'
+    )
+  return <Chips
+  key={language.name}
+  classes={classes}
+  name={language.name}
+  bgColor={language.backgroundColor}
+  color={language.color}/>})
+
+  console.log(chipElements)
+  // console.log(guessedLetters)
 
   const letterArray = currentWord.split("")
   const letterElements = letterArray.map(letter => {
