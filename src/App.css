@@ -127,6 +127,13 @@ p {
   min-height: 75px;
 }
 
+.letter-won {
+  color: #10A95B;
+}
+.letter-lost {
+  color: #EC5D49;
+}
+
 .keyboard-section {
   display: flex;
   justify-content: center;

@@ -51,13 +51,20 @@ export default function App() {
   // console.log(chipElements)
   // console.log(guessedLetters)
 
+
+  const classes = clsx("letter",
+    gameOver && gameWon ? 'letter-won' :
+    gameOver && gameLost ? 'letter-lost' : ""
+  )
   const letterArray = currentWord.split("")
   const letterElements = letterArray.map(letter => {
       const isGuessed = guessedLetters.includes(letter)
       return (<Word
         key={nanoid()}
+        classes={classes}
         letter={letter}
-        isGuessed={isGuessed}/>)}
+        isGuessed={isGuessed}
+        gameOver={gameOver}/>)}
     )
 
   function letterGuessed(letter) {
