@@ -1,7 +1,7 @@
 export default function Status(props) {
 
     return (
-        <section className={props.classes}>
+        <section className={props.classes} aria-live="polite" role="status">
             {props.gameOver ? (
                 <>
                     <h2>{props.gameWon ? "You win!" : props.gameLost ? "Game over!" : ""}</h2>

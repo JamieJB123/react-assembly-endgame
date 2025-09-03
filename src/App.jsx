@@ -30,6 +30,7 @@ export default function App() {
   else {
     lastGuessedIncorrect = !currentWord.includes(guessedLetters[guessedLetters.length -1])
   }
+  const lastGuessed = guessedLetters[guessedLetters.length -1]
 
   // Static Values
 
@@ -121,6 +122,16 @@ export default function App() {
         </section>
         <section className="letter-section">
           {letterElements}
+        </section>
+        {/* Combined visually hidden aria-live region for status updates */}
+        <section className="sr-only" aria-live="polite" role="status">
+          <p>
+            {currentWord.includes(lastGuessed) ? `Correct! The letter ${lastGuessed} is in the word.` : `Sorry, the letter ${lastGuessed} is not in the word.`}
+            You have {(languages.length -1) - wrongGuessCount} guesses left!
+          </p>
+          <p>
+            Current word: {currentWord.split("").map((letter) => guessedLetters.includes(letter) ? letter + ".": "blank.").join(" ")}
+          </p>
         </section>
         <section className="keyboard-section">
           {keyboardElements}
