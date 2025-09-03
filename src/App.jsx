@@ -17,7 +17,9 @@ export default function App() {
   // Derived Values
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
 
-  console.log(wrongGuessCount)
+  const gameLost = wrongGuessCount >= languages.length - 1
+  const gameWon = guessedLetters.filter(letter => currentWord.includes(letter)).length === currentWord.length
+  const gameOver = gameLost || gameWon
 
   // Static Values
 
@@ -69,20 +71,25 @@ export default function App() {
       isGuessed && !isCorrect ? "incorrect" :
       "not-guessed"
     )
+    return (
+      <Keyboard
+      key={letter}
+      letter={letter}
+      letterGuessed={letterGuessed}
+      classes={classes}/>)}
+  )
 
-  return (
-    <Keyboard
-    key={letter}
-    letter={letter}
-    letterGuessed={letterGuessed}
-    classes={classes}/>)}
-)
+  const statusClasses = clsx(
+    'status-container',
+    gameWon && 'status-container-won',
+    gameLost && 'status-container-lost',
+  )
 
   return (
     <>
       <main>
         <Header />
-        <Status />
+        <Status classes={statusClasses} gameWon={gameWon} gameLost={gameLost}/>
         <section className="chips-container">
           {chipElements}
         </section>
@@ -92,7 +99,7 @@ export default function App() {
         <section className="keyboard-section">
           {keyboardElements}
         </section>
-        <button className="new-game">New Game</button>
+        { gameOver && <button className="new-game">New Game</button>}
       </main>
     </>
   )

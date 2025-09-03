@@ -1,8 +1,8 @@
-export default function Status() {
+export default function Status(props) {
     return (
-        <section className="status-container">
-            <h2>You win!</h2>
-            <p>Well done! 🎉</p>
+        <section className={props.classes}>
+            <h2>{props.gameWon ? "You win!" : props.gameLost ? "Game over!" : ""}</h2>
+            <p>{ props.gameWon ? "Well done! 🎉" : props.gameLost ? "You lose! Better start learning Assembly 😭" : ""}</p>
         </section>
     )
 }
