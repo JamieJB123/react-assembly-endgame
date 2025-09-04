@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { clsx } from 'clsx'
 import Confetti from 'react-confetti'
 import { useWindowSize } from 'react-use'
@@ -35,6 +35,17 @@ export default function App() {
     lastGuessedIncorrect = !currentWord.includes(guessedLetters[guessedLetters.length -1])
   }
   const lastGuessed = guessedLetters[guessedLetters.length -1]
+
+  // Ref
+  const newGame = useRef(null)
+
+  // Focus on the newGame button automatically when game finishes.
+
+  useEffect(() => {
+    if (gameOver && newGame.current != null) {
+      newGame.current.focus()
+    }
+  }, [gameOver])
 
   // Static Values
 
@@ -158,7 +169,7 @@ export default function App() {
         <section className="keyboard-section">
           {keyboardElements}
         </section>
-        { gameOver && <button className="new-game" onClick={resetGame}>New Game</button>}
+        { gameOver && <button ref={newGame} className="new-game" onClick={resetGame}>New Game</button>}
         {gameLost &&
         <Loss />}
       </main>
