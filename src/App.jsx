@@ -18,7 +18,6 @@ export default function App() {
 // Lazy state initialisation for currentWord
   const [ currentWord, setCurrentWord ] = useState(() => getWord())
   const [ guessedLetters, setGuessedLetters ] = useState([])
-  console.log(currentWord)
 
   // Derived Values
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
@@ -77,9 +76,6 @@ export default function App() {
   bgColor={language.backgroundColor}
   color={language.color}/>})
 
-  // console.log(chipElements)
-  // console.log(guessedLetters)
-
   const letterArray = currentWord.split("")
   const letterElements = letterArray.map(letter => {
       const isGuessed = guessedLetters.includes(letter)
@@ -129,8 +125,6 @@ export default function App() {
   if (wrongGuessCount >= 1) {
     farewellMessage = getFarewellText(languages[wrongGuessCount-1].name)
   }
-  // console.log(farewellMessage)
-  // console.log(wrongGuessCount)
 
   const statusClasses = clsx(
     'status-container',
