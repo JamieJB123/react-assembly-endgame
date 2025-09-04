@@ -47,6 +47,21 @@ export default function App() {
     }
   }, [gameOver])
 
+  // Enable keystroke functionality:
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (alphabet.includes(event.key)) {
+        letterGuessed(event.key)
+      }
+    }
+    if (!gameOver) {
+      document.addEventListener('keydown', handleKeyDown)
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [gameOver]);
+
   // Static Values
 
   const chipElements = languages.map((language) => {
