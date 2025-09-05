@@ -181,6 +181,8 @@ button.new-game {
   display: block;
   margin-inline: auto;
   cursor: pointer;
+  font-weight: 580;
+  font-size: 1.25rem;
 }
 
 .sr-only {
